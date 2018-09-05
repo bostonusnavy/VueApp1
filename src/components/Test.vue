@@ -28,6 +28,34 @@
         <ul>
           <li v-for="item in items" v-bind:key="item">{{item.title}}</li>
         </ul>
+
+        <br>
+        <br>
+
+        <!-- input binding using v-model directive -->
+        <h2>Enter text in the following input to change the text below it:</h2>
+        <input type="text" v-model="titleBind">
+        <br>
+        <h3>{{titleBind}}</h3>
+
+        <br>
+        <br>
+
+        <!-- adding some interaction events -->
+        <button v-on:click="greet('Greetings!')">Click for a greeting!</button>
+        <p id="greetingClickText"></p>
+        <br>
+        <p>Type in the following input and watch the text dynamically appear below the input!</p>
+        <input id="keyPressedInputElement" type="text" v-on:keyup="pressKey()">
+        <p id="keyPressedInputValue"></p>
+        <br>
+        <p>Type text in the following input and the counter below it will tell you how many characters are in what you have typed:</p>
+        <input id="keystrokeInputElement" type="text" v-on:keyup="countKeystrokes()">
+        <p id="keystrokeCounterValue"></p>
+
+        <br>
+        <br>
+
     </div>
 </template>
 
@@ -38,6 +66,7 @@ export default {
     return {
       titleText: 'Hiya there, ',
       titleHTML: '<h1>Hey ho there, </h1>',
+      titleBind: '',
       user: {
         firstName: 'John',
         lastName: 'Doe',
@@ -56,6 +85,17 @@ export default {
         },
       ],
     };
+  },
+  methods: {
+    greet: (greetingMessage) => {
+      document.querySelector('#greetingClickText').innerHTML = greetingMessage;
+    },
+    pressKey: () => {
+      document.querySelector('#keyPressedInputValue').innerHTML = document.querySelector('#keyPressedInputElement').value;
+    },
+    countKeystrokes: () => {
+      document.querySelector('#keystrokeCounterValue').innerHTML = `There are ${document.querySelector('#keystrokeInputElement').value.length} characters in what you have typed.`;
+    }
   },
 };
 </script>
